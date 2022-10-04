@@ -6,20 +6,57 @@ namespace Palindromes
     {
         static void Main()
         {
-            //string input = "sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop";
-            string input = "sqrrqzxqrrrq";
-            var palindromHelper = new PalindromHelper();
-            Console.WriteLine(palindromHelper.FindThreeLongestUniquePalindromes(input));
+            string input = "sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop";
+
+            if (string.IsNullOrWhiteSpace(input) || input.Length == 1)
+                Console.WriteLine("The input string is not valid.");
+
+            //string input = "sqrrqzxqrrrq";
+            var s = string.Join("\r\n", PalindromHelper.FindThreeLongestUniquePalindromes2(input));
+            Console.WriteLine(s);
         }
     }
 
     public class PalindromHelper
     {
-        public string FindThreeLongestUniquePalindromes(string input)
+        public static IEnumerable<PalindromeInfo2> FindThreeLongestUniquePalindromes2(string input)
         {
-            if (string.IsNullOrWhiteSpace(input) || input.Length == 1)
-                return "The input string is not valid.";
+            var palindromes = new HashSet<string>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char c = input[i];
+                int position = i;
+                while (true)
+                {
+                    position = input.IndexOf(c, position + 1);
+                    if (position == -1)
+                        break;
 
+                    string text = input.Substring(i, position - i + 1);
+                    if (text == new string(text.Reverse().ToArray()))
+                        palindromes.Add(text);
+                }
+            }
+
+            return palindromes
+                .OrderByDescending(p => p.Length)
+                .Take(3)
+                .Select(p => new PalindromeInfo2 { Text = p, StartIndex = input.IndexOf(p), Length = p.Length });
+        }
+
+        public class PalindromeInfo2
+        {
+            public override string ToString()
+            {
+                return $"Text: {Text}, Index: {StartIndex}, Length: {Length}";
+            }
+            public string Text { get; set; }
+            public int StartIndex { get; set; }
+            public int Length { get; set; }
+        }
+
+        public static string FindThreeLongestUniquePalindromes(string input)
+        {
             var palindromes = new Hashtable();
             for (int i = 0; i < input.Length; i++)
             {
@@ -54,7 +91,7 @@ namespace Palindromes
                 .Take(3));
         }
 
-        private PalindromeInfo GetPalindromeExpandingFromMiddle(string input, int i, int j)
+        private static PalindromeInfo GetPalindromeExpandingFromMiddle(string input, int i, int j)
         {
             while (i >= 0 && j < input.Length && input[i] == input[j])
             {
@@ -63,10 +100,10 @@ namespace Palindromes
             }
 
             int length = j - i - 1;
-            int startIndex = i + 1;
-
             if (length <= 1)
                 return null;
+
+            int startIndex = i + 1;
 
             return new PalindromeInfo
             {
