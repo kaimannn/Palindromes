@@ -38,9 +38,7 @@ namespace Palindromes
                 }
             }
 
-            return palindromes
-                .OrderByDescending(p => p.Length)
-                .Take(3)
+            return palindromes.OrderByDescending(p => p.Length).Take(3)
                 .Select(p => new PalindromeInfo2 { Text = p, StartIndex = input.IndexOf(p), Length = p.Length });
         }
 
