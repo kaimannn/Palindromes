@@ -4,6 +4,9 @@
     {
         public IEnumerable<PalindromeInfo> FindThreeLongestUniquePalindromes1(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+                throw new ArgumentNullException(nameof(input));
+
             var palindromes = new HashSet<string>();
             for (int i = 0; i < input.Length; i++)
             {
@@ -27,6 +30,9 @@
 
         public IEnumerable<PalindromeInfo> FindThreeLongestUniquePalindromes2(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+                throw new ArgumentNullException(nameof(input));
+
             var palindromes = new HashSet<string>();
             for (int i = 0; i < input.Length; i++)
             {
