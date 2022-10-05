@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Palindromes.Service\Palindromes.Service.csproj" />
+  </ItemGroup>
+
 </Project>
