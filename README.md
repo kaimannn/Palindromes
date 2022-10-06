@@ -2,14 +2,13 @@
 
 # Solution 1
 
-This solution is the first one I came up with. It takes into account subpalindromes from one palindrome, because the UNIQUE word had been understood as "different strings".
-This solution doesn't perform very good. 
+This solution is the first one I came up with. It takes into account subpalindromes from one palindrome, because the UNIQUE word had been understood as "different palindrome strings", so the solution is returning subpalindromes
+from the same palindrome.
 
 # Solution 2
 
-This solution is the second I did in order to improve the first one. This solution doesn't take into account subpalindromes from one palindrome, because the UNIQUE word has been understood as "do not use subpalindromes from one 
-found palindrome".
-This solution performs better than the first one.
+This solution is the second that has been done in order to improve the first one. This solution doesn't take into account subpalindromes from one palindrome, because the UNIQUE word has been understood as "do not use subpalindromes 
+from one found palindrome". For this reason, this solution does less checks than the first one and performs better.
 
 # Architecture
 
