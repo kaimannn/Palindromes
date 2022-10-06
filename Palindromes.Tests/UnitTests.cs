@@ -7,52 +7,96 @@ namespace Palindromes.Tests
     {
         private readonly PalindromeHelper palindromeHelper = new();
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes1_HandleEmptyString()
+        // Solution 1
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void HandleEmptyOrWhiteSpaceOrNullString_FindThreeLongestUniquePalindromes1(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes1(""));
+            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes1(input));
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes1_HandleWhiteSpaceString()
+        [Theory]
+        [InlineData("sbqxaaxqbs")]
+        [InlineData("sbqxa1axqbs")]
+        public void CheckEntireStringIsPalindrome_FindThreeLongestUniquePalindromes1(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes1(" "));
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes1(input).First().Text == input);
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes1_HandleNullString()
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckThreeResultsHaveBeenFound_FindThreeLongestUniquePalindromes1(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes1(null));
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes1(input).Count() == 3);
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes1_DoNotCountSubPalindromes()
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckFirstLongestPalindrome_FindThreeLongestUniquePalindromes1(string input)
         {
-            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes1("sqrrqz").Count() == 2); // {qrrqz,rr}
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes1(input).ToList()[0].Text == "qqqrdhdfhddhd342243dhddhfdhdrqqq");
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes2_HandleEmptyString()
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckSecondLongestPalindrome_FindSecondLongestUniquePalindromes1(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes2(""));
+            Assert.False(palindromeHelper.FindThreeLongestUniquePalindromes1(input).ToList()[1].Text == "ferrariirarref");
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes2_HandleWhiteSpaceString()
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckThirdLongestPalindrome_FindThreeLongestUniquePalindromes1(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes2(" "));
+            Assert.False(palindromeHelper.FindThreeLongestUniquePalindromes1(input).ToList()[2].Text == "12223332221");
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes2_HandleNullString()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void HandleEmptyOrWhiteSpaceOrNullString_FindThreeLongestUniquePalindromes2(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes2(null));
+            Assert.Throws<ArgumentNullException>(() => palindromeHelper.FindThreeLongestUniquePalindromes2(input));
         }
 
-        [Fact]
-        public void FindThreeLongestUniquePalindromes2_CountSubPalindromes()
+        [Theory]
+        [InlineData("sbqxaaxqbs")]
+        [InlineData("sbqxa1axqbs")]
+        public void CheckEntireStringIsPalindrome_FindThreeLongestUniquePalindromes2(string input)
         {
-            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2("sqrrqz").Count() == 1); // {qrrqz}
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2(input).First().Text == input);
+        }
+
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckThreeResultsHaveBeenFound_FindThreeLongestUniquePalindromes2(string input)
+        {
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2(input).Count() == 3);
+        }
+
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckFirstLongestPalindrome_FindThreeLongestUniquePalindromes2(string input)
+        {
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2(input).ToList()[0].Text == "qqqrdhdfhddhd342243dhddhfdhdrqqq");
+        }
+
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckSecondLongestPalindrome_FindSecondLongestUniquePalindromes2(string input)
+        {
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2(input).ToList()[1].Text == "ferrariirarref");
+        }
+
+        [Theory]
+        [InlineData("qqqrdhdfhddhd342243dhddhfdhdrqqqasd12223332221zxwsddferrariirarref")]
+        public void CheckThirdLongestPalindrome_FindThreeLongestUniquePalindromes2(string input)
+        {
+            Assert.True(palindromeHelper.FindThreeLongestUniquePalindromes2(input).ToList()[2].Text == "12223332221");
         }
     }
 }

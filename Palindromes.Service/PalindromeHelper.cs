@@ -41,7 +41,7 @@
 
                 if (oddPalindrome != null)
                     palindromes.Add(oddPalindrome);
-                if (evenpalindrome != null)
+                else if (evenpalindrome != null)
                     palindromes.Add(evenpalindrome);
             }
 
@@ -51,6 +51,8 @@
 
         private string GetPalindromeExpandingFromMiddle(string input, int i, int j)
         {
+            bool isEven = i == j;
+
             while (i >= 0 && j < input.Length && input[i] == input[j])
             {
                 i--;
@@ -58,7 +60,8 @@
             }
 
             int length = j - i - 1;
-            if (length <= 1)
+
+            if ((length == 0 && !isEven) || (length == 1 && isEven))
                 return null;
 
             int startIndex = i + 1;
